@@ -28,8 +28,8 @@ spring:
           user-record-standard:
             type: UserRecordShardingAlgorithm
             props:
+              workId: 123
               allow-range-query-with-record-sharding: false
-
 
   #表示不加入默认的静态资源路径处理,解决返回404默认页面问题
   resources:
