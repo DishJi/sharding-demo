@@ -1,0 +1,12 @@
+spring:
+  shardingsphere:
+    datasource:
+      common:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        username:
+        password:
+      names: ds0
+      ds0:
+        jdbc-url:
+

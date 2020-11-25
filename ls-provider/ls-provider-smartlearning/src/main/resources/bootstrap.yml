@@ -1,0 +1,45 @@
+server:
+  port: 2004
+  servlet:
+    context-path: /smartlearning
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
+  tomcat:
+    uri-encoding: UTF-8
+spring:
+  profiles:
+    active: dev
+  application:
+    name: provider-smartlearning
+  shardingsphere:
+    rules:
+      sharding:
+        default-data-source-name: ds0
+        tables:
+          user_record:
+            actual-data-nodes: ds0.user_record,ds0.user_record_$->{2019..2022}
+            table-strategy:
+              standard:
+                sharding-column: user_id
+                sharding-algorithm-name: user-record-standard
+        sharding-algorithms:
+          user-record-standard:
+            type: UserRecordShardingAlgorithm
+            props:
+              allow-range-query-with-record-sharding: false
+
+
+  #表示不加入默认的静态资源路径处理,解决返回404默认页面问题
+  resources:
+    addMappings: false
+    #让其抛出异常，这样我们就能处理这个异常,解决返回404默认页面问题
+  mvc:
+    throw-exception-if-no-handler-found: true
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/smartlearning/*.xml
+  configuration:
+    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: false
